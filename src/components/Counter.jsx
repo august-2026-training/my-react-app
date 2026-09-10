@@ -6,7 +6,12 @@ export default function Counter() {
 
   function incrementCounter() {
     //counter = counter + 1;
-    setCounter(counter + 1);
+    // setCounter(counter + 1);
+    // setCounter(counter + 1);
+    // setCounter(counter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
     console.log(counter);
   }
 

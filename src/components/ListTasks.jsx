@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function ListTasks() {
+  const [newTask, setNewTask] = useState("");
   const [allTasks, setAllTasks] = useState([
     {
       taskId: 1,
@@ -45,8 +46,37 @@ export default function ListTasks() {
     setAllTasks(copyAllTasks);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    setAllTasks([
+      ...allTasks,
+      {
+        taskId: allTasks[allTasks.length - 1].taskId + 1,
+        taskName: newTask,
+        taskStatus: false,
+      },
+    ]);
+    setNewTask("");
+  }
   return (
-    <>
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <div className="form-control-group">
+          <label htmlFor="textId">New Task :</label>
+          <input
+            type="text"
+            className="form-control"
+            id="textId"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+        </div>
+        <div>
+          <button type="submit" className="btn btn-success">
+            ADD TASK
+          </button>
+        </div>
+      </form>
       <table className="table table-striped">
         <thead className="table-dark">
           <tr>
@@ -91,6 +121,6 @@ export default function ListTasks() {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
