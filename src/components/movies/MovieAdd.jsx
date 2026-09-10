@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function MovieAdd() {
+  const [errors, setErrors] = useState({});
   const [newMovie, setNewMovie] = useState({
     movieId: 0,
     movieTitle: "",
@@ -15,9 +16,26 @@ export default function MovieAdd() {
       [e.target.name]: e.target.value,
     });
   }
+  function validate() {
+    // take a field and check if the input validation is violated
+    if (!newMovie.movieTitle) {
+      errors.movieTitle = "Movie Title is Required!";
+    } else if (newMovie.movieTitle.length() < 2) {
+      errors.movieTitle = "Movie Title should be atleast 2 characters!";
+    }
+
+    if (!newMovie.movieImageUrl) {
+      errors.movieImageUrl = "Movie Image Url is Required!";
+    }
+    // if violated add it as a property in the errors object
+    return errors.length == 0;
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (validate()) {
+      // use fetch API and send form data to back end
+    }
     console.log(newMovie);
   }
   return (
@@ -37,6 +55,7 @@ export default function MovieAdd() {
               onChange={handleChange}
             />
           </div>
+          <p className="text-danger text-small">{errors.movieTitle}</p>
           <div>
             <label htmlFor="mDesc" className="form-label">
               Movie Description
@@ -76,6 +95,7 @@ export default function MovieAdd() {
               onChange={handleChange}
             />
           </div>
+          <p className="text-danger text-small">{errors.movieImageUrl}</p>
         </div>
         <div className="card-footer bg-success text-white">
           <button type="submit" className="btn btn-light m-3">
