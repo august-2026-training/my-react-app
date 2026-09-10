@@ -19,9 +19,9 @@ function App() {
       {/* <Counter /> */}
       {/* <ColorList /> */}
       {/* <Toggle /> */}
-      <ListTasks />
+      {/* <ListTasks /> */}
       {/* <FruitList /> */}
-      {/* <MovieAdd /> */}
+      <MovieAdd />
       {/* <Copy /> */}
     </>
   );
