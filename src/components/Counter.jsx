@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Counter() {
   const [counter, setCounter] = useState(0);
+  const navigate = useNavigate();
   //let counter = 0;
 
   function incrementCounter() {
@@ -13,6 +15,9 @@ export default function Counter() {
     setCounter((prevCounter) => prevCounter + 1);
     setCounter((prevCounter) => prevCounter + 1);
     console.log(counter);
+
+    // programtically navigate to another component - /fruitlist
+    navigate("/fruitlist");
   }
 
   return (

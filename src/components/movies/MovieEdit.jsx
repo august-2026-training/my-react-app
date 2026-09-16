@@ -1,11 +1,12 @@
-import { useState } from "react";
-import movieService from "./movieService";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import movieService from './movieService';
 
-export default function MovieAdd() {
+export default function MovieEdit() {
   const navigate = useNavigate();
+  const {movId} = useParams();
   const [errors, setErrors] = useState({});
-  const [newMovie, setNewMovie] = useState({
+  const [updateMovie, setUpdateMovie] = useState({
     movieId: 0,
     movieTitle: "",
     movieDescription: "",
@@ -13,22 +14,33 @@ export default function MovieAdd() {
     movieImageUrl: "",
   });
 
+  useEffect(()=>{
+    console.log(movId);
+    movieService
+        .getAMovie(movId)
+        .then((response)=>response.json())
+        .then((resp)=>{
+            console.log(resp);
+            setUpdateMovie(resp);
+        });
+  }, []);
+
   function handleChange(e) {
-    setNewMovie({
-      ...newMovie,
+    setUpdateMovie({
+      ...updateMovie,
       [e.target.name]: e.target.value,
     });
     setErrors({ ...errors, [e.target.name]: "" });
   }
   function validate() {
     let newErrors = {};
-    if (!newMovie.movieTitle) {
+    if (!updateMovie.movieTitle) {
       newErrors.movieTitle = "Movie Title is Required!";
-    } else if (newMovie.movieTitle.length < 2) {
+    } else if (updateMovie.movieTitle.length < 2) {
       newErrors.movieTitle = "Movie Title should be atleast 2 characters!";
     }
 
-    if (!newMovie.movieImageUrl) {
+    if (!updateMovie.movieImageUrl) {
       newErrors.movieImageUrl = "Movie Image Url is Required!";
     }
     setErrors(newErrors);
@@ -41,7 +53,7 @@ export default function MovieAdd() {
     if (validate()) {
       // use fetch API and send form data to back end
       movieService
-        .addMovie(newMovie)
+        .updateMovie(updateMovie)
         .then((response)=>{
         if (!response.ok) {
           throw new Error("Error is receiving response!");
@@ -54,12 +66,12 @@ export default function MovieAdd() {
         })
         .catch((error)=>console.log(error));
     }
-    console.log(newMovie);
+    console.log(updateMovie);
   }
   return (
     <div className="container m-3">
       <form onSubmit={handleSubmit}>
-        <div className="card-header bg-success text-white"><h3>ADD NEW MOVIE</h3></div>
+        <div className="card-header bg-primary text-white"><h3>EDIT MOVIE</h3></div>
         <div className="card-body">
           <div>
             <label htmlFor="mTitle" className="form-label">
@@ -70,6 +82,7 @@ export default function MovieAdd() {
               className="form-control"
               id="mTitle"
               name="movieTitle"
+              value={updateMovie.movieTitle}
               onChange={handleChange}
             />
           </div>
@@ -82,6 +95,7 @@ export default function MovieAdd() {
               className="form-control"
               id="mDesc"
               name="movieDescription"
+              value={updateMovie.movieDescription}
               onChange={handleChange}
             ></textarea>
           </div>
@@ -93,6 +107,7 @@ export default function MovieAdd() {
               id="mRelease"
               className="form-control"
               name="movieReleaseYear"
+              value="updateMovie.movieReleaseYear"
               onChange={handleChange}
             >
               <option value="2020">2020</option>
@@ -110,14 +125,15 @@ export default function MovieAdd() {
               className="form-control"
               id="mImage"
               name="movieImageUrl"
+              value={updateMovie.movieImageUrl}
               onChange={handleChange}
             />
           </div>
           <p className="text-danger text-small">{errors.movieImageUrl}</p>
         </div>
-        <div className="card-footer bg-success text-white">
+        <div className="card-footer bg-primary text-white">
           <button type="submit" className="btn btn-light m-3">
-            Add Movie
+            Update Movie
           </button>
           <button type="reset" className="btn btn-light m-3">
             Clear
