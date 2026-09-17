@@ -1,4 +1,3 @@
-
 import Display from "./components/display/Display.jsx";
 import Counter from "./components/Counter.jsx";
 import ColorList from "./components/ColorList.jsx";
@@ -11,31 +10,33 @@ import MovieEdit from "./components/movies/MovieEdit.jsx";
 import MovieList from "./components/movies/MovieList.jsx";
 import MovieDashboard from "./components/movies/MovieDashboard.jsx";
 import Copy from "./components/Copy.jsx";
+import Login from "./components/users/Login.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-
   return (
     <>
-    
-     <BrowserRouter>
-     <Header></Header>
-     <Routes>
-      <Route path="/display" element={<Display />} />
-      <Route path="/counter" element={<Counter />} />
-      <Route path="/colorlist" element={<ColorList />} />
-      <Route path="/toggle" element={<Toggle />} />
-      <Route path="/movies" element={<MovieDashboard />} >
-        <Route path="/movies/add" element={<MovieAdd />} />
-        <Route path="/movies/edit/:movId" element={<MovieEdit />} />
-        <Route path="/movies/list" element={<MovieList />} />
-      </Route>
-      <Route path="/listtasks" element={<ListTasks />} />
-      <Route path="/fruitlist" element={<FruitList />} />
-      <Route path="/copy" element={<Copy />} />
-     </Routes>
-     </BrowserRouter>
-     
+      <BrowserRouter>
+        <Header></Header>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dash" element={<Dashboard />}>
+            <Route path="/dash/display" element={<Display />} />
+            <Route path="/dash/counter" element={<Counter />} />
+            <Route path="/dash/colorlist" element={<ColorList />} />
+            <Route path="/dash/toggle" element={<Toggle />} />
+            <Route path="/dash/movies" element={<MovieDashboard />}>
+              <Route path="/dash/movies/add" element={<MovieAdd />} />
+              <Route path="/dash/movies/edit/:movId" element={<MovieEdit />} />
+              <Route path="/dash/movies/list" element={<MovieList />} />
+            </Route>
+            <Route path="/dash/listtasks" element={<ListTasks />} />
+            <Route path="/dash/fruitlist" element={<FruitList />} />
+            <Route path="/dash/copy" element={<Copy />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

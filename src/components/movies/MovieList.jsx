@@ -6,10 +6,10 @@ export default function MovieList() {
   const navigate = useNavigate();
   const [allMovies, setAllMovies] = useState([]);
   useEffect(() => {
-    loadMovie()
+    loadMovie();
   }, []);
 
-  function loadMovie(){
+  function loadMovie() {
     movieService
       .getAllMovies()
       .then((response) => {
@@ -24,14 +24,12 @@ export default function MovieList() {
       })
       .catch((err) => console.log(err));
   }
-  function editMovie(movId){
-    navigate(`/movies/edit/${movId}`);
+  function editMovie(movId) {
+    navigate(`/dash/movies/edit/${movId}`);
   }
 
-  function deleteMovie(movId){
-    movieService
-      .deleteMovie(movId)
-      .then(()=>loadMovie());
+  function deleteMovie(movId) {
+    movieService.deleteMovie(movId).then(() => loadMovie());
   }
 
   return (
@@ -48,10 +46,16 @@ export default function MovieList() {
             <div className="card-body">
               <h4 className="card-title">{eachMovie.movieTitle}</h4>
               <p className="card-text">{eachMovie.movieDescription}</p>
-              <button className="btn btn-primary" onClick={()=>editMovie(eachMovie.movieId)}>
+              <button
+                className="btn btn-primary"
+                onClick={() => editMovie(eachMovie.movieId)}
+              >
                 Edit
               </button>
-              <button className="btn btn-danger mx-2" onClick={()=>deleteMovie(eachMovie.movieId)}>
+              <button
+                className="btn btn-danger mx-2"
+                onClick={() => deleteMovie(eachMovie.movieId)}
+              >
                 Remove
               </button>
             </div>
