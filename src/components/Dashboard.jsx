@@ -66,6 +66,13 @@ export default function Dashboard() {
                 </Link>
               </li>
             )}
+            {authService.isAdmin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/dash/timer">
+                  Timer
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Logout

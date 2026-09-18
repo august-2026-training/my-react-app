@@ -12,6 +12,7 @@ import MovieDashboard from "./components/movies/MovieDashboard.jsx";
 import Copy from "./components/Copy.jsx";
 import Login from "./components/users/Login.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import TimerComponent from "./components/TimerComponent.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             </Route>
             <Route path="/dash/listtasks" element={<ListTasks />} />
             <Route path="/dash/fruitlist" element={<FruitList />} />
+            <Route path="/dash/timer" element={<TimerComponent />} />
             <Route path="/dash/copy" element={<Copy />} />
           </Route>
         </Routes>
